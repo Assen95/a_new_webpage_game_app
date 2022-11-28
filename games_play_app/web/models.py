@@ -26,19 +26,28 @@ class Profile(models.Model):
         blank=False,
     )
     first_name = models.CharField(
+        verbose_name='First Name',
         max_length=MAX_FIRST_NAME,
         null=True,
         blank=True,
     )
     last_name = models.CharField(
+        verbose_name='Last Name',
         max_length=MAX_LAST_NAME,
         null=True,
         blank=True,
     )
     profile_picture = models.URLField(
+        verbose_name='Profile Picture',
         null=True,
         blank=True,
     )
+
+    def __str__(self):
+        return self.email
+
+    def full_name(self):
+        return f'{self.first_name}-{self.last_name}'
 
 
 class ChoicesEnum(Enum):
@@ -82,6 +91,7 @@ class Game(models.Model):
         null=False,
     )
     max_level = models.PositiveIntegerField(
+        verbose_name='Max Level',
         validators=[
             validators.MinValueValidator(1)
         ],
@@ -89,6 +99,7 @@ class Game(models.Model):
         null=True,
     )
     image_url = models.URLField(
+        verbose_name='Image URL',
         blank=False,
         null=False,
     )
@@ -96,3 +107,6 @@ class Game(models.Model):
         blank=True,
         null=True,
     )
+
+    def __str__(self):
+        return self.title
